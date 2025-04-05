@@ -4,6 +4,9 @@
   --background: #292A3E;
   --foreground: #1E1E1E;
   --color-text: #FFFFFF;
+  --palette-one-blue: #6DABF2;
+  --palette-two-pink: #F9DFE3;
+  --palette-three-red: #DB4D3F; 
 }
 
 @theme inline {
@@ -12,6 +15,9 @@
   --color-text: var(--color-text);
   --font-poppins: var(--font-poppins);
   --font-mono: var(--font-geist-mono);
+  --color-blue: var(--palette-one-blue);
+  --color-pink: var(--palette-two-pink);
+  --color-red: var(--palette-three-red);
 }
 
 body {

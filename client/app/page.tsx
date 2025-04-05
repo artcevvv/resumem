@@ -1,9 +1,11 @@
 import Hero from "@/components/Home/Hero";
+import Templates from "@/components/Home/Templates";
 
 export default function Home() {
   return (
-    <main className="-mx-[20px]">
+    <>
       <Hero />
-    </main>
+      <Templates />
+    </>
   );
 }

@@ -7,10 +7,12 @@ import (
 )
 
 func main() {
+	InitDB()
+
 	r := gin.Default()
 
-	r.GET("/api/v1/register", Register)
-	r.GET("/api/v1/login", Login)
+	r.POST("/api/v1/register", Register)
+	r.POST("/api/v1/login", Login)
 
 	r.GET("/api/v1/health", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{

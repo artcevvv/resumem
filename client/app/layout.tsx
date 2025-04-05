@@ -5,8 +5,8 @@ import Header from "@/components/Global/Header";
 
 const poppins = Poppins({
   variable: "--font-poppins",
-  weight: "400"
-})
+  weight: "400",
+});
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,11 +20,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru">
-      <body
-        className={`${poppins.variable} antialiased p-[20px]`}
-        >
+      <body className={`${poppins.variable} antialiased p-[20px]`}>
         <Header />
-        {children}
+        <main className="w-screen -mx-[20px] bg-foreground">{children}</main>
       </body>
     </html>
   );
