@@ -21,7 +21,7 @@ type Resume struct {
 	Fullname    string      `json:"fullname"`
 	Phonenumber string      `json:"phone_number"`
 	Email       string      `json:"email"`
-	Links       []Link      `json:"links"`
+	Links       []Link      `gorm:"foreignKey:ResumeID" json:"links"`
 	Summary     string      `json:"summary"`
 	Skills      []Skill     `json:"skills"`
 	Educations  []Education `json:"educations,omitempty"`
@@ -31,21 +31,24 @@ type Resume struct {
 
 type Link struct {
 	gorm.Model
-	User uint   `json:"user_id"`
-	Type string `json:"type"`
-	URL  string `json:"url"`
+	User     uint   `json:"user_id"`
+	ResumeID uint   `json:"resume_id"`
+	Type     string `json:"type"`
+	URL      string `json:"url"`
 }
 
 type Skill struct {
 	gorm.Model
-	User  uint   `json:"user_id"`
-	Type  string `json:"type"`
-	Level string `json:"level"`
+	User     uint   `json:"user_id"`
+	ResumeID uint   `json:"resume_id"`
+	Type     string `json:"type"`
+	Level    string `json:"level"`
 }
 
 type Education struct {
 	gorm.Model
 	User        uint      `json:"user_id"`
+	ResumeID    uint      `json:"resume_id"`
 	School      string    `json:"school"`
 	Degree      string    `json:"degree"`
 	StartDate   time.Time `json:"start_date"`
@@ -57,6 +60,7 @@ type Education struct {
 type Career struct {
 	gorm.Model
 	User        uint      `json:"user_id"`
+	ResumeID    uint      `json:"resume_id"`
 	JobTitle    string    `json:"job_title"`
 	Employer    string    `json:"employer"`
 	StartDate   time.Time `json:"start_date"`
@@ -68,6 +72,7 @@ type Career struct {
 type Course struct {
 	gorm.Model
 	User      uint      `json:"user_id"`
+	ResumeID  uint      `json:"resume_id"`
 	URL       string    `json:"url"`
 	Name      string    `json:"name"`
 	StartDate time.Time `json:"start_date"`
