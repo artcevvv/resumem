@@ -10,7 +10,7 @@ type User struct {
 	gorm.Model
 	Email    string   `gorm:"uniqueIndex;not null" json:"email"`
 	Password string   `json:"password"`
-	Name     string   `json:"username"`
+	Name     string   `json:"name"`
 	Resumes  []Resume `json:"resumes,omitempty"`
 }
 

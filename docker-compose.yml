@@ -1,6 +1,17 @@
-version: '3.8'
+version: "3.8"
 
 services:
+  api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    env_file: .env
+    depends_on:
+      - db
+    volumes:
+      - ./server:/app
   db:
     image: postgres:15
     container_name: pg-docker
