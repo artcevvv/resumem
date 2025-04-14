@@ -72,8 +72,7 @@ export default function DashboardPage() {
 
     return (
         <Container>
-
-            <div className="px-4 py-5 sm:px-6 flex justify-between items-center">
+            <div className="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-b-grey">
                 <h3 className="text-lg leading-6 font-medium">My Resumes</h3>
                 <Link
                     href="/dashboard/new"

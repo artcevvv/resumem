@@ -5,17 +5,16 @@ export function middleware(request: NextRequest) {
   const token = request.cookies.get('token');
   const { pathname } = request.nextUrl;
 
-  // Public paths that don't require authentication
-  const publicPaths = ['/login', '/register'];
-  const isPublicPath = publicPaths.includes(pathname);
+  // Only protect the dashboard route
+  const isDashboardPath = pathname.startsWith('/dashboard');
 
-  // If the user is not authenticated and trying to access a protected route
-  if (!token && !isPublicPath) {
+  // If the user is not authenticated and trying to access the dashboard
+  if (!token && isDashboardPath) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
   // If the user is authenticated and trying to access auth pages
-  if (token && isPublicPath) {
+  if (token && (pathname === '/login' || pathname === '/register')) {
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 
