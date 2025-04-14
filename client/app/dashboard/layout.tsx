@@ -6,21 +6,21 @@ import { usePathname } from 'next/navigation';
 import { removeToken } from '../config/api';
 
 export default function DashboardLayout({
-  children,
+    children,
 }: {
-  children: React.ReactNode;
+    children: React.ReactNode;
 }) {
-  const pathname = usePathname();
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const pathname = usePathname();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  const handleLogout = () => {
-    removeToken();
-    window.location.href = '/login';
-  };
+    const handleLogout = () => {
+        removeToken();
+        window.location.href = '/login';
+    };
 
-  return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="bg-white shadow-sm">
+    return (
+        <div className="min-h-screen">
+            {/* <nav className="bg-white shadow-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16">
             <div className="flex">
@@ -87,7 +87,6 @@ export default function DashboardLayout({
           </div>
         </div>
 
-        {/* Mobile menu */}
         {isMenuOpen && (
           <div className="sm:hidden">
             <div className="pt-2 pb-3 space-y-1">
@@ -120,11 +119,11 @@ export default function DashboardLayout({
             </div>
           </div>
         )}
-      </nav>
+      </nav> */}
 
-      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
-        {children}
-      </main>
-    </div>
-  );
-} 
+            <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+                {children}
+            </main>
+        </div>
+    );
+}
