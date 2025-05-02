@@ -4,18 +4,37 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { getToken } from '../config/api';
 import Container from '@/components/Global/Container';
+import ResumeCard from '@/components/Dashboard/ResumeCard';
 
-interface Resume {
-    id: number;
+interface ServerResume {
+    ID?: number;
+    id?: number;
     fullname: string;
     email: string;
     phone_number: string;
     summary: string;
-    created_at: string;
+    CreatedAt: string;
+    UpdatedAt: string;
+    links: Array<{ type: string; url: string }>;
+    skills: Array<{ type: string; level: string }>;
+    educations: Array<{
+        school: string;
+        degree: string;
+        start_date: string;
+        end_date: string;
+        city: string;
+    }>;
+    careers: Array<{
+        job_title: string;
+        employer: string;
+        start_date: string;
+        end_date: string;
+        city: string;
+    }>;
 }
 
 export default function DashboardPage() {
-    const [resumes, setResumes] = useState<Resume[]>([]);
+    const [resumes, setResumes] = useState<ServerResume[]>([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState('');
 
@@ -33,9 +52,19 @@ export default function DashboardPage() {
                     throw new Error('Failed to fetch resumes');
                 }
 
-                const data = await response.json();
-                setResumes(data);
+                const data = await response.json() as ServerResume[];
+                console.log('Received resumes data:', data);
+                
+                // Ensure each resume has an ID
+                const processedData = data.map((resume) => ({
+                    ...resume,
+                    id: resume.ID || resume.id // Handle both cases
+                }));
+                
+                console.log('Processed resumes data:', processedData);
+                setResumes(processedData);
             } catch (err) {
+                console.error('Error fetching resumes:', err);
                 setError(err instanceof Error ? err.message : 'An error occurred');
             } finally {
                 setLoading(false);
@@ -72,51 +101,50 @@ export default function DashboardPage() {
 
     return (
         <Container>
-            <div className="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-b-grey">
-                <h3 className="text-lg leading-6 font-medium">My Resumes</h3>
+            <div className="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
+                <div>
+                    <h3 className="text-2xl font-bold text-white">My Resumes</h3>
+                    <p className="mt-1 text-sm text-white">Manage and view all your professional resumes</p>
+                </div>
                 <Link
                     href="/dashboard/new"
                     className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
                 >
+                    <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                    </svg>
                     Create New Resume
                 </Link>
             </div>
-            <ul className="divide-y divide-gray-200">
-                {resumes.map((resume) => (
-                    <li key={resume.id}>
-                        <Link href={`/dashboard/resumes/${resume.id}`} className="block hover:bg-gray-50">
-                            <div className="px-4 py-4 sm:px-6">
-                                <div className="flex items-center justify-between">
-                                    <p className="text-sm font-medium text-indigo-600 truncate">{resume.fullname}</p>
-                                    <div className="ml-2 flex-shrink-0 flex">
-                                        <p className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                                            {new Date(resume.created_at).toLocaleDateString()}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="mt-2 sm:flex sm:justify-between">
-                                    <div className="sm:flex">
-                                        <p className="flex items-center text-sm text-gray-500">
-                                            {resume.email}
-                                        </p>
-                                        <p className="mt-2 flex items-center text-sm text-gray-500 sm:mt-0 sm:ml-6">
-                                            {resume.phone_number}
-                                        </p>
-                                    </div>
-                                </div>
-                                <div className="mt-2">
-                                    <p className="text-sm text-gray-500 line-clamp-2">{resume.summary}</p>
-                                </div>
-                            </div>
-                        </Link>
-                    </li>
-                ))}
+            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-4">
+                {resumes.map((resume) => {
+                    const id = resume.ID || resume.id;
+                    if (!id) return null;
+                    return <ResumeCard key={id} resume={{ ...resume, id }} />;
+                })}
                 {resumes.length === 0 && (
-                    <li className="px-4 py-4 sm:px-6 text-center text-gray-500">
-                        No resumes found. Create your first resume!
-                    </li>
+                    <div className="col-span-full">
+                        <div className="text-center py-12 bg-white rounded-lg shadow">
+                            <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                            </svg>
+                            <h3 className="mt-2 text-sm font-bold text-gray-900">No resumes</h3>
+                            <p className="mt-1 text-sm text-white">Get started by creating a new resume.</p>
+                            <div className="mt-6">
+                                <Link
+                                    href="/dashboard/new"
+                                    className="inline-flex items-center px-4 py-2 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                >
+                                    <svg className="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
+                                    </svg>
+                                    Create New Resume
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
                 )}
-            </ul>
+            </div>
         </Container>
     );
 }

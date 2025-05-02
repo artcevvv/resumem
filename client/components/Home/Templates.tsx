@@ -1,6 +1,5 @@
 import React from "react";
 import Container from "../Global/Container";
-import Gallery from "../Global/Gallery";
 
 function Templates() {
   const galleryItems = [

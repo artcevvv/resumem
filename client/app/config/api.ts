@@ -12,15 +12,30 @@ export interface AuthResponse {
 }
 
 export const setToken = (token: string) => {
+  console.log('Setting token:', token);
   document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
+  console.log('Current cookies after setting:', document.cookie);
 };
 
 export const getToken = () => {
-  return document.cookie.split('; ').find(row => row.startsWith('token='))?.split('=')[1];
+  console.log('Getting token from cookies:', document.cookie);
+  const cookies = document.cookie.split('; ');
+  console.log('Split cookies:', cookies);
+  const tokenCookie = cookies.find(row => row.startsWith('token='));
+  console.log('Found token cookie:', tokenCookie);
+  if (!tokenCookie) {
+    console.log('No token cookie found');
+    return null;
+  }
+  const token = tokenCookie.split('=')[1];
+  console.log('Extracted token:', token);
+  return token || null;
 };
 
 export const removeToken = () => {
+  console.log('Removing token');
   document.cookie = 'token=; path=/; max-age=0';
+  console.log('Current cookies after removal:', document.cookie);
 };
 
 export const register = async (email: string, password: string, name: string): Promise<AuthResponse> => {
@@ -45,20 +60,28 @@ export const register = async (email: string, password: string, name: string): P
   return data;
 };
 
-export const login = async (email: string, password: string): Promise<AuthResponse> => {
-  const response = await fetch(`${API_URL}/login`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify({ email, password }),
-  });
+export const login = async (email: string, password: string) => {
+    try {
+        console.log('Making login request...');
+        const response = await fetch(`${API_URL}/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ email, password }),
+        });
 
-  const data = await response.json();
-  
-  if (!response.ok) {
-    throw new Error(data.error || 'Login failed');
-  }
+        console.log('Login response status:', response.status);
+        const data = await response.json();
+        console.log('Login response data:', data);
 
-  return data;
+        if (!response.ok) {
+            throw new Error(data.error || 'Login failed');
+        }
+
+        return data;
+    } catch (error) {
+        console.error('Login API error:', error);
+        throw error;
+    }
 };

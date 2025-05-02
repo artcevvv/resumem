@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react'
-import { useRouter } from 'next/navigation'
 import { useCookies } from 'react-cookie'
 
 export default function Settings() {
@@ -12,7 +11,6 @@ export default function Settings() {
   const [error, setError] = useState('')
   const [success, setSuccess] = useState('')
   const [cookies] = useCookies(['token'])
-  const router = useRouter()
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()

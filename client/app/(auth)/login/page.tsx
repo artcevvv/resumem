@@ -19,10 +19,20 @@ export default function LoginPage() {
         setIsLoading(true);
 
         try {
+            console.log('Attempting login...');
             const response = await login(email, password);
+            console.log('Login response:', response);
+            
+            if (!response.token) {
+                throw new Error('No token received from server');
+            }
+            
+            console.log('Setting token...');
             await setToken(response.token);
+            console.log('Token set, redirecting to dashboard...');
             router.push('/dashboard');
         } catch (err) {
+            console.error('Login error:', err);
             setError(err instanceof Error ? err.message : 'An error occurred');
         } finally {
             setIsLoading(false);
