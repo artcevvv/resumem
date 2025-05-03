@@ -1,4 +1,5 @@
 import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { ResumeData } from './types';
 
 // Register fonts
 Font.register({
@@ -97,31 +98,11 @@ const styles = StyleSheet.create({
   },
 });
 
-interface ResumeData {
-  fullname: string;
-  email: string;
-  phone_number: string;
-  summary: string;
-  skills: Array<{ type: string; level: string }>;
-  educations: Array<{
-    school: string;
-    degree: string;
-    start_date: string;
-    end_date: string;
-    city: string;
-    description: string;
-  }>;
-  careers: Array<{
-    job_title: string;
-    employer: string;
-    start_date: string;
-    end_date: string;
-    city: string;
-    description: string;
-  }>;
+interface ModernTemplateProps {
+  resume: ResumeData;
 }
 
-const ModernTemplate = ({ resume }: { resume: ResumeData }) => (
+const ModernTemplate = ({ resume }: ModernTemplateProps) => (
   <Document>
     <Page size="A4" style={styles.page}>
       {/* Header */}
