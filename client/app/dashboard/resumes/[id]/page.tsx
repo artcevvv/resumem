@@ -5,6 +5,7 @@ import { getToken } from '../../../config/api';
 import Container from '@/components/Global/Container';
 import Link from 'next/link';
 import TemplateSelector from '../../../../components/Dashboard/ResumeTemplates/TemplateSelector';
+import BackButton from '../../../../components/Dashboard/BackButton';
 
 interface Resume {
     ID: number;
@@ -100,30 +101,33 @@ export default function ResumePage({ params }: { params: Promise<{ id: string }>
 
     return (
         <Container>
+            <BackButton />
             <div className="max-w-4xl mx-auto py-8">
                 <div className="bg-background shadow rounded-lg overflow-hidden">
                     {/* Header */}
                     <div className="px-6 py-5 border-b border-gray-200">
                         <div className="flex justify-between items-start">
-                            <div>
-                                <h1 className="text-3xl font-bold text-white">{resume.fullname}</h1>
-                                <div className="mt-2 flex items-center space-x-4 text-white">
-                                    <div className="flex items-center">
-                                        <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                                        </svg>
-                                        {resume.email}
-                                    </div>
-                                    <div className="flex items-center">
-                                        <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                                        </svg>
-                                        {resume.phone_number}
+                            <div className="flex items-center space-x-4">
+                                <div>
+                                    <h1 className="text-3xl font-bold text-text">{resume.fullname}</h1>
+                                    <div className="mt-2 flex flex-col space-x-4 text-text">
+                                        <div className="flex items-center">
+                                            <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                            </svg>
+                                            {resume.email}
+                                        </div>
+                                        <div className="flex items-center">
+                                            <svg className="h-5 w-5 mr-2 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                                            </svg>
+                                            {resume.phone_number}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div className="flex flex-col items-end space-y-2">
-                                <div className="text-sm text-white">
+                                <div className="text-sm text-text">
                                     <div>Created: {new Date(resume.CreatedAt).toLocaleDateString()}</div>
                                     <div>Updated: {new Date(resume.UpdatedAt).toLocaleDateString()}</div>
                                 </div>
@@ -155,14 +159,14 @@ export default function ResumePage({ params }: { params: Promise<{ id: string }>
                     <div className="px-6 py-5 space-y-8">
                         {/* Summary */}
                         <div>
-                            <h2 className="text-xl font-semibold text-white mb-3">Summary</h2>
-                            <p className="text-white">{resume.summary}</p>
+                            <h2 className="text-xl font-semibold text-text mb-3">Summary</h2>
+                            <p className="text-text">{resume.summary}</p>
                         </div>
 
                         {/* Links */}
                         {resume.links && resume.links.length > 0 && (
                             <div>
-                                <h2 className="text-xl font-semibold text-white mb-3">Links</h2>
+                                <h2 className="text-xl font-semibold text-text mb-3">Links</h2>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                                     {resume.links.map((link, index) => (
                                         <a
@@ -170,9 +174,9 @@ export default function ResumePage({ params }: { params: Promise<{ id: string }>
                                             href={link.url}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="flex items-center p-3 bg-gray-800 rounded-lg hover:bg-gray-700 transition-colors"
+                                            className="flex items-center p-3 bg-background border border-gray-400 rounded-lg hover:bg-background/80 transition-colors"
                                         >
-                                            <span className="text-white">{link.type}</span>
+                                            <span className="text-text">{link.type}</span>
                                         </a>
                                     ))}
                                 </div>
@@ -182,7 +186,7 @@ export default function ResumePage({ params }: { params: Promise<{ id: string }>
                         {/* Skills */}
                         {resume.skills && resume.skills.length > 0 && (
                             <div>
-                                <h2 className="text-xl font-semibold text-white mb-3">Skills</h2>
+                                <h2 className="text-xl font-semibold text-text mb-3">Skills</h2>
                                 <div className="flex flex-wrap gap-2">
                                     {resume.skills.map((skill, index) => (
                                         <span
@@ -199,12 +203,12 @@ export default function ResumePage({ params }: { params: Promise<{ id: string }>
                         {/* Education */}
                         {resume.educations && resume.educations.length > 0 && (
                             <div>
-                                <h2 className="text-xl font-semibold text-white mb-3">Education</h2>
+                                <h2 className="text-xl font-semibold text-text mb-3">Education</h2>
                                 <div className="space-y-4">
                                     {resume.educations.map((edu, index) => (
-                                        <div key={index} className="bg-gray-800 p-4 rounded-lg">
-                                            <h3 className="text-lg font-medium text-white">{edu.degree}</h3>
-                                            <p className="text-white">{edu.school}</p>
+                                        <div key={index} className="bg-background border border-gray-400 p-4 rounded-lg">
+                                            <h3 className="text-lg font-medium text-text">{edu.degree}</h3>
+                                            <p className="text-text">{edu.school}</p>
                                             <p className="text-gray-400">
                                                 {new Date(edu.start_date).toLocaleDateString()} - {edu.end_date ? new Date(edu.end_date).toLocaleDateString() : 'Present'}
                                             </p>
@@ -221,12 +225,12 @@ export default function ResumePage({ params }: { params: Promise<{ id: string }>
                         {/* Career Experience */}
                         {resume.careers && resume.careers.length > 0 && (
                             <div>
-                                <h2 className="text-xl font-semibold text-white mb-3">Experience</h2>
+                                <h2 className="text-xl font-semibold text-text mb-3">Experience</h2>
                                 <div className="space-y-4">
                                     {resume.careers.map((career, index) => (
-                                        <div key={index} className="bg-gray-800 p-4 rounded-lg">
-                                            <h3 className="text-lg font-medium text-white">{career.job_title}</h3>
-                                            <p className="text-white">{career.employer}</p>
+                                        <div key={index} className="bg-background border border-gray-400 p-4 rounded-lg">
+                                            <h3 className="text-lg font-medium text-text">{career.job_title}</h3>
+                                            <p className="text-text">{career.employer}</p>
                                             <p className="text-gray-400">
                                                 {new Date(career.start_date).toLocaleDateString()} - {career.end_date ? new Date(career.end_date).toLocaleDateString() : 'Present'}
                                             </p>
@@ -243,11 +247,11 @@ export default function ResumePage({ params }: { params: Promise<{ id: string }>
                         {/* Courses */}
                         {resume.courses && resume.courses.length > 0 && (
                             <div>
-                                <h2 className="text-xl font-semibold text-white mb-3">Courses</h2>
+                                <h2 className="text-xl font-semibold text-text mb-3">Courses</h2>
                                 <div className="space-y-4">
                                     {resume.courses.map((course, index) => (
-                                        <div key={index} className="bg-gray-800 p-4 rounded-lg">
-                                            <h3 className="text-lg font-medium text-white">{course.name}</h3>
+                                        <div key={index} className="bg-background border border-gray-400 p-4 rounded-lg">
+                                            <h3 className="text-lg font-medium text-text">{course.name}</h3>
                                             <p className="text-gray-400">
                                                 {new Date(course.start_date).toLocaleDateString()} - {course.end_date ? new Date(course.end_date).toLocaleDateString() : 'Present'}
                                             </p>

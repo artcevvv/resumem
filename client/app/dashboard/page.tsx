@@ -101,10 +101,10 @@ export default function DashboardPage() {
 
     return (
         <Container>
-            <div className="px-4 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
+            <div className="px-0 py-5 sm:px-6 flex justify-between items-center border-b border-gray-200">
                 <div>
-                    <h3 className="text-2xl font-bold text-white">My Resumes</h3>
-                    <p className="mt-1 text-sm text-white">Manage and view all your professional resumes</p>
+                    <h3 className="text-2xl font-bold text-text">My Resumes</h3>
+                    <p className="mt-1 text-sm text-text">Manage and view all your professional resumes</p>
                 </div>
                 <Link
                     href="/dashboard/new"
@@ -116,7 +116,7 @@ export default function DashboardPage() {
                     Create New Resume
                 </Link>
             </div>
-            <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 p-4">
+            <div className="grid grid-cols-1 px-0 gap-6 sm:grid-cols-2 lg:grid-cols-3 py-4">
                 {resumes.map((resume) => {
                     const id = resume.ID || resume.id;
                     if (!id) return null;
@@ -129,7 +129,7 @@ export default function DashboardPage() {
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                             <h3 className="mt-2 text-sm font-bold text-gray-900">No resumes</h3>
-                            <p className="mt-1 text-sm text-white">Get started by creating a new resume.</p>
+                            <p className="mt-1 text-sm text-text">Get started by creating a new resume.</p>
                             <div className="mt-6">
                                 <Link
                                     href="/dashboard/new"

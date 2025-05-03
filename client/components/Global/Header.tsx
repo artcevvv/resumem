@@ -55,7 +55,7 @@ function Header({ isLoggedIn, onLogout }: HeaderProps) {
 
   return (
     <>
-      <header className="w-full bg-foreground py-4 md:py-6 px-4 md:px-10 border-b flex flex-col md:flex-row items-center justify-between">
+      <header className="w-full py-4 md:py-4 px-4 md:px-10 border-b flex flex-col md:flex-row items-center justify-between">
         <div className="md:w-auto w-full flex gap-12 text-center justify-center">
           <div className='w-full md:w-auto flex items-center justify-between'>
             <Link href="/">
@@ -86,12 +86,12 @@ function Header({ isLoggedIn, onLogout }: HeaderProps) {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={handleDropdownClick}
-                className="flex items-center justify-center w-12 h-12 rounded-3xl bg-text text-foreground hover:bg-text/90 transition-colors"
+                className="flex items-center justify-center w-12 h-12 rounded-3xl bg-text text-white hover:bg-text/90 transition-colors"
               >
                 <User className="w-6 h-6" />
               </button>
               {isDropdownOpen && (
-                <div className="absolute right-0 mt-2 w-48 bg-foreground rounded-3xl shadow-lg py-2 z-50">
+                <div className="absolute right-0 mt-2 w-48 bg-background rounded-3xl shadow-lg py-2 z-50">
                   <Link
                     href="/dashboard"
                     className="block px-4 py-2 text-text hover:bg-text hover:text-foreground transition-colors"
@@ -145,53 +145,53 @@ function Header({ isLoggedIn, onLogout }: HeaderProps) {
 
         {/* Drawer Content */}
         <div
-          className={`absolute left-0 top-0 h-full w-64 bg-foreground transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+          className={`absolute left-0 top-0 h-full w-64 bg-black transform transition-transform duration-300 ease-in-out ${isMobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
         >
           <div className="p-4">
             <div className="flex flex-col gap-6">
               <nav className="flex flex-col gap-4">
                 <Link
                   href="/templates"
-                  className='text-xl font-normal tracking-tighter hover:text-text/80 transition-colors'
+                  className='text-xl text-white font-normal tracking-tighter hover:text-text/80 transition-colors'
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Templates
                 </Link>
                 <Link
                   href="/contacts"
-                  className='text-xl font-normal tracking-tighter hover:text-text/80 transition-colors'
+                  className='text-xl text-white font-normal tracking-tighter hover:text-text/80 transition-colors'
                   onClick={() => setIsMobileMenuOpen(false)}
                 >
                   Contact Us
                 </Link>
               </nav>
-
+              <div className='border-t border-gray-700'></div>
               <div className="flex flex-col gap-4">
                 {isLoggedIn ? (
                   <>
                     <Link
                       href="/dashboard"
-                      className='text-xl font-normal tracking-tighter hover:text-text/80 transition-colors'
+                      className='text-xl text-white font-normal tracking-tighter hover:text-text/80 transition-colors'
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Dashboard
                     </Link>
                     <Link
                       href="/dashboard/new"
-                      className='text-xl font-normal tracking-tighter hover:text-text/80 transition-colors'
+                      className='text-xl text-white font-normal tracking-tighter hover:text-text/80 transition-colors'
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       New Resume
                     </Link>
                     <Link
                       href="/settings"
-                      className='text-xl font-normal tracking-tighter hover:text-text/80 transition-colors'
+                      className='text-xl text-white font-normal tracking-tighter hover:text-text/80 transition-colors'
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Settings
                     </Link>
                     <button
-                      className='text-xl font-normal tracking-tighter hover:text-text/80 transition-colors text-left'
+                      className='text-xl text-white font-normal tracking-tighter hover:text-text/80 transition-colors text-left'
                       onClick={() => {
                         onLogout()
                         setIsMobileMenuOpen(false)
@@ -204,14 +204,14 @@ function Header({ isLoggedIn, onLogout }: HeaderProps) {
                   <>
                     <Link
                       href="/login"
-                      className='text-xl font-normal tracking-tighter hover:text-text/80 transition-colors'
+                      className='text-xl text-white font-normal tracking-tighter hover:text-text/80 transition-colors'
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Log In
                     </Link>
                     <Link
                       href="/register"
-                      className='text-xl font-normal tracking-tighter hover:text-text/80 transition-colors'
+                      className='text-xl text-white font-normal tracking-tighter hover:text-text/80 transition-colors'
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       Sign Up

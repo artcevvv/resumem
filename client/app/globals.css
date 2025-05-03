@@ -1,12 +1,13 @@
 @import "tailwindcss";
 
 :root {
-    --background: #292A3E;
-    --foreground: #1E1E1E;
-    --color-text: white;
+    --background: white;
+    --foreground: #005b96;
+    --color-text: black;
     --palette-one-blue: #6DABF2;
     --palette-two-pink: #F9DFE3;
     --palette-three-red: #DB4D3F;
+    --color-header-text: white;
 }
 
 @theme inline {
@@ -18,6 +19,7 @@
     --color-blue: var(--palette-one-blue);
     --color-pink: var(--palette-two-pink);
     --color-red: var(--palette-three-red);
+    --color-header-text: var(--color-header-text);
 }
 
 body {

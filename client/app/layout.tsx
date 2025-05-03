@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={`${poppins.variable} antialiased`}>
         <Providers>
           <HeaderWrapper />
-          <main className="w-screen bg-foreground">{children}</main>
+          <main className="w-screen bg-background">{children}</main>
         </Providers>
       </body>
     </html>

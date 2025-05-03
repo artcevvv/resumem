@@ -56,13 +56,13 @@ export default function TemplateSelector({ resume, onClose }: TemplateSelectorPr
   const TemplateComponent = selectedTemplate.component;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <div className="fixed inset-0 bg-[#33333350] bg-opacity-50 flex items-center justify-center z-50">
       <div className="bg-background rounded-lg p-6 max-w-6xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-white">Select Resume Template</h2>
+          <h2 className="text-2xl font-bold text-text">Select Resume Template</h2>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white"
+            className="text-gray-400 hover:text-text"
           >
             <svg className="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
@@ -73,19 +73,19 @@ export default function TemplateSelector({ resume, onClose }: TemplateSelectorPr
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Template Selection */}
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-white mb-4">Available Templates</h3>
+            <h3 className="text-lg font-semibold text-text mb-4">Available Templates</h3>
             {templates.map((template) => (
               <div
                 key={template.id}
                 className={`border rounded-lg p-4 cursor-pointer transition-colors ${
                   selectedTemplate.id === template.id
-                    ? 'border-indigo-500 bg-indigo-500 bg-opacity-10'
+                    ? 'text-white border-indigo-500 bg-indigo-500 bg-opacity-10'
                     : 'border-gray-700 hover:border-indigo-500'
                 }`}
                 onClick={() => setSelectedTemplate(template)}
               >
-                <h3 className="text-lg font-semibold text-white mb-2">{template.name}</h3>
-                <p className="text-gray-400 text-sm">{template.description}</p>
+                <h3 className={`text-lg font-semibold mb-2 ${selectedTemplate.id === template.id ? 'text-white' : 'text-text'}`}>{template.name}</h3>
+                <p className={`text-sm ${selectedTemplate.id === template.id ? 'text-gray-300' : 'text-gray-400'}`}>{template.description}</p>
               </div>
             ))}
           </div>
@@ -108,7 +108,7 @@ export default function TemplateSelector({ resume, onClose }: TemplateSelectorPr
         <div className="flex justify-end space-x-4 mt-6">
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-gray-600 rounded-md text-white hover:bg-gray-700"
+            className="px-4 py-2 border border-gray-600 rounded-md text-text hover:bg-background/80 "
           >
             Cancel
           </button>
