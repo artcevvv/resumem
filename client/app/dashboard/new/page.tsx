@@ -269,7 +269,7 @@ export default function NewResumePage() {
                                     onValueChange={(values) => {
                                         setFormData({ ...formData, phone_number: values.value });
                                     }}
-                                    format="+7 (###) ###-####"
+                                    format="+# (###) ###-####"
                                     mask="_"
                                     className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                     placeholder="Enter your phone number"
@@ -278,7 +278,7 @@ export default function NewResumePage() {
                         </div>
                         <div>
                             <label htmlFor="summary" className="block text-sm font-medium text-gray-700 mb-1">
-                                <RequiredLabel>Summary</RequiredLabel>
+                                Summary
                             </label>
                             <div className="relative">
                                 <div className="absolute top-3 left-3 pointer-events-none">
@@ -620,7 +620,7 @@ export default function NewResumePage() {
                                 </div>
                                 <div>
                                     <label htmlFor={`career-employer-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                        <RequiredLabel>Employer</RequiredLabel>
+                                        Employer
                                     </label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -637,14 +637,13 @@ export default function NewResumePage() {
                                             }}
                                             className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                             placeholder="Enter employer"
-                                            required
                                         />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label htmlFor={`career-start-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                            <RequiredLabel>Start Date</RequiredLabel>
+                                            Start Date
                                         </label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -666,7 +665,7 @@ export default function NewResumePage() {
                                     </div>
                                     <div>
                                         <label htmlFor={`career-end-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                            <RequiredLabel>End Date</RequiredLabel>
+                                            End Date
                                         </label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -682,14 +681,13 @@ export default function NewResumePage() {
                                                     setFormData({ ...formData, careers: newCareers });
                                                 }}
                                                 className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
-                                                required
                                             />
                                         </div>
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor={`career-city-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                        <RequiredLabel>City</RequiredLabel>
+                                        City
                                     </label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -706,13 +704,12 @@ export default function NewResumePage() {
                                             }}
                                             className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                             placeholder="Enter city"
-                                            required
                                         />
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor={`career-description-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                        <RequiredLabel>Description</RequiredLabel>
+                                        Description
                                     </label>
                                     <div className="relative">
                                         <div className="absolute top-3 left-3 pointer-events-none">
@@ -729,7 +726,6 @@ export default function NewResumePage() {
                                             }}
                                             className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                             placeholder="Enter career description"
-                                            required
                                         />
                                     </div>
                                 </div>
@@ -767,7 +763,7 @@ export default function NewResumePage() {
                             <div key={index} className="space-y-4">
                                 <div>
                                     <label htmlFor={`course-name-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                        <RequiredLabel>Course Name</RequiredLabel>
+                                        Course Name
                                     </label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -784,13 +780,12 @@ export default function NewResumePage() {
                                             }}
                                             className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                             placeholder="Enter course name"
-                                            required
                                         />
                                     </div>
                                 </div>
                                 <div>
                                     <label htmlFor={`course-url-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                        <RequiredLabel>Course URL</RequiredLabel>
+                                        Course URL
                                     </label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -807,14 +802,13 @@ export default function NewResumePage() {
                                             }}
                                             className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                             placeholder="https://..."
-                                            required
                                         />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
                                         <label htmlFor={`course-start-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                            <RequiredLabel>Start Date</RequiredLabel>
+                                            Start Date
                                         </label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -830,13 +824,12 @@ export default function NewResumePage() {
                                                     setFormData({ ...formData, courses: newCourses });
                                                 }}
                                                 className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
-                                                required
                                             />
                                         </div>
                                     </div>
                                     <div>
                                         <label htmlFor={`course-end-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
-                                            <RequiredLabel>End Date</RequiredLabel>
+                                            End Date
                                         </label>
                                         <div className="relative">
                                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -852,7 +845,6 @@ export default function NewResumePage() {
                                                     setFormData({ ...formData, courses: newCourses });
                                                 }}
                                                 className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
-                                                required
                                             />
                                         </div>
                                     </div>

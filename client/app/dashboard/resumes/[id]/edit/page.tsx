@@ -273,7 +273,7 @@ export default function EditResumePage({ params }: Props) {
                                 </div>
                                 <div>
                                     <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                                        Phone Number
+                                        <RequiredLabel>Phone Number</RequiredLabel>
                                     </label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -285,10 +285,11 @@ export default function EditResumePage({ params }: Props) {
                                             onValueChange={(values) => {
                                                 setResume({ ...resume, phone_number: values.value });
                                             }}
-                                            format="+7 (###) ###-####"
+                                            format="+# (###) ###-####"
                                             mask="_"
                                             className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                             placeholder="Enter your phone number"
+                                            required
                                         />
                                     </div>
                                 </div>
@@ -471,7 +472,7 @@ export default function EditResumePage({ params }: Props) {
                                     <div key={index} className="space-y-4">
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                <RequiredLabel>School</RequiredLabel>
+                                                School
                                             </label>
                                             <div className="relative">
                                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -487,13 +488,12 @@ export default function EditResumePage({ params }: Props) {
                                                     }}
                                                     className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                                     placeholder="Enter school name"
-                                                    required
                                                 />
                                             </div>
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                <RequiredLabel>Degree</RequiredLabel>
+                                                Degree
                                             </label>
                                             <div className="relative">
                                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -509,14 +509,13 @@ export default function EditResumePage({ params }: Props) {
                                                     }}
                                                     className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                                     placeholder="Enter degree"
-                                                    required
                                                 />
                                             </div>
                                         </div>
                                         <div className="grid grid-cols-2 gap-4">
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                    <RequiredLabel>Start Date</RequiredLabel>
+                                                    Start Date
                                                 </label>
                                                 <div className="relative">
                                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -531,13 +530,12 @@ export default function EditResumePage({ params }: Props) {
                                                             setResume({ ...resume, educations: newEducations });
                                                         }}
                                                         className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
-                                                        required
                                                     />
                                                 </div>
                                             </div>
                                             <div>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                    <RequiredLabel>End Date</RequiredLabel>
+                                                    End Date
                                                 </label>
                                                 <div className="relative">
                                                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -552,14 +550,13 @@ export default function EditResumePage({ params }: Props) {
                                                             setResume({ ...resume, educations: newEducations });
                                                         }}
                                                         className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
-                                                        required
                                                     />
                                                 </div>
                                             </div>
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">
-                                                <RequiredLabel>City</RequiredLabel>
+                                                City
                                             </label>
                                             <div className="relative">
                                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -575,7 +572,6 @@ export default function EditResumePage({ params }: Props) {
                                                     }}
                                                     className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
                                                     placeholder="Enter city"
-                                                    required
                                                 />
                                             </div>
                                         </div>

@@ -17,7 +17,7 @@ export default function CTA() {
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
-                  href="/signup"
+                  href="/register"
                   className="inline-flex items-center justify-center px-8 py-3 text-base font-medium text-indigo-600 bg-white rounded-lg hover:bg-indigo-50 transition-colors"
                 >
                   Get Started Free

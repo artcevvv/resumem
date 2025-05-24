@@ -15,7 +15,7 @@ const plans = [
       "24-hour support"
     ],
     cta: "Get Started",
-    href: "/signup",
+    href: "/register",
     popular: false
   },
   {
@@ -31,7 +31,7 @@ const plans = [
       "Unlimited resumes"
     ],
     cta: "Start Free Trial",
-    href: "/signup?plan=pro",
+    href: "/register?plan=pro",
     popular: true
   },
   {
