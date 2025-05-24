@@ -8,16 +8,13 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
   console.log('Middleware - Current pathname:', pathname);
 
-  // Only protect the dashboard route
   const isDashboardPath = pathname.startsWith('/dashboard');
 
-  // If the user is not authenticated and trying to access the dashboard
   if (!token && isDashboardPath) {
     console.log('Middleware - No token found, redirecting to login');
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
-  // If the user is authenticated and trying to access auth pages
   if (token && (pathname === '/login' || pathname === '/register')) {
     console.log('Middleware - Token found, redirecting to dashboard');
     return NextResponse.redirect(new URL('/dashboard', request.url));

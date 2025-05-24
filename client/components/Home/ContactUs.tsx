@@ -28,8 +28,7 @@ export default function ContactUs() {
         setSubmitStatus('idle');
 
         try {
-            // TODO: Implement actual form submission
-            await new Promise(resolve => setTimeout(resolve, 1000)); // Simulated API call
+            await new Promise(resolve => setTimeout(resolve, 1000));
             setSubmitStatus('success');
             setFormData({ name: '', email: '', subject: '', message: '' });
         } catch {

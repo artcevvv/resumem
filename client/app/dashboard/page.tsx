@@ -55,10 +55,9 @@ export default function DashboardPage() {
                 const data = await response.json() as ServerResume[];
                 console.log('Received resumes data:', data);
                 
-                // Ensure each resume has an ID
                 const processedData = data.map((resume) => ({
                     ...resume,
-                    id: resume.ID || resume.id // Handle both cases
+                    id: resume.ID || resume.id
                 }));
                 
                 console.log('Processed resumes data:', processedData);

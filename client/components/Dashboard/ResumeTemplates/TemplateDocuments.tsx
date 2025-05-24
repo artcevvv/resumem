@@ -3,7 +3,6 @@ import ModernTemplate from './ModernTemplate';
 import CreativeTemplate from './CreativeTemplate';
 import { ResumeData } from './types';
 
-// Sample resume data for previews
 const sampleResumeData: ResumeData = {
     fullname: "John Doe",
     email: "john.doe@example.com",

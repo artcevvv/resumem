@@ -12,7 +12,6 @@ Font.register({
   ],
 });
 
-// Create styles
 const styles = StyleSheet.create({
   page: {
     flexDirection: 'column',

@@ -16,7 +16,6 @@ function Header({ isLoggedIn, onLogout }: HeaderProps) {
   const dropdownRef = useRef<HTMLDivElement>(null)
   const mobileMenuRef = useRef<HTMLDivElement>(null)
 
-  // Close dropdown and mobile menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
@@ -31,7 +30,6 @@ function Header({ isLoggedIn, onLogout }: HeaderProps) {
     return () => document.removeEventListener('mousedown', handleClickOutside)
   }, [])
 
-  // Prevent body scroll when mobile menu is open
   useEffect(() => {
     if (typeof window !== 'undefined') {
       if (isMobileMenuOpen) {

@@ -98,7 +98,6 @@ export default function EditResumePage({ params }: Props) {
                 }
 
                 const data = await response.json();
-                // Format dates to YYYY-MM-DD for input fields
                 const formattedData = {
                     ...data,
                     educations: data.educations.map((edu: Education) => ({
@@ -137,7 +136,6 @@ export default function EditResumePage({ params }: Props) {
 
         try {
             const token = getToken();
-            // Format dates to ISO string for API
             const formattedData = {
                 ...resume,
                 educations: resume.educations.map(edu => ({
