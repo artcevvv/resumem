@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
@@ -9,8 +11,13 @@ func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
 	config := cors.DefaultConfig()
-	config.AllowAllOrigins = true
+	allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
+	if allowedOrigins == "" {
+		allowedOrigins = "http://localhost:3000" // Default for development
+	}
+	config.AllowOrigins = []string{allowedOrigins}
 	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
+	config.AllowCredentials = true
 	r.Use(cors.New(config))
 
 	r.POST("/api/v1/register", Register)

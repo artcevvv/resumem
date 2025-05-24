@@ -52,7 +52,7 @@ export default function LoginPage() {
                                     Welcome back
                                 </h2>
                                 <p className="mt-2 text-gray-600">
-                                    Don't have an account?{' '}
+                                    Don&apos;t have an account?{' '}
                                     <Link href="/register" className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors">
                                         Sign up
                                     </Link>

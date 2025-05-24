@@ -31,7 +31,7 @@ function Hero() {
                   className="object-cover"
                   priority
                 />
-              </div>
+              </div>﻿
             </div>
           </div>
 

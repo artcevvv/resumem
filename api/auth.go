@@ -9,7 +9,6 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 )
 
-// AuthMiddleware checks for a valid JWT token in the Authorization header
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		authHeader := c.GetHeader("Authorization")
@@ -19,7 +18,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		// Check if the Authorization header has the correct format
 		parts := strings.Split(authHeader, " ")
 		if len(parts) != 2 || parts[0] != "Bearer" {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid authorization header format"})
@@ -30,7 +28,6 @@ func AuthMiddleware() gin.HandlerFunc {
 		token := parts[1]
 		claims := jwt.MapClaims{}
 
-		// Parse and validate the token
 		parsedToken, err := jwt.ParseWithClaims(token, claims, func(token *jwt.Token) (interface{}, error) {
 			return []byte(os.Getenv("JWT_SECRET")), nil
 		})
@@ -41,7 +38,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		// Extract user ID from claims
 		userID, ok := claims["user_id"].(float64)
 		if !ok {
 			c.JSON(http.StatusUnauthorized, gin.H{"error": "Invalid token claims"})
@@ -49,7 +45,6 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 
-		// Store user ID in context
 		c.Set("user_id", uint(userID))
 		c.Next()
 	}

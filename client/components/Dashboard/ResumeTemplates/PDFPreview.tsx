@@ -36,7 +36,7 @@ export default function PDFPreview({ pdfDocument, templateId }: PDFPreviewProps)
         URL.revokeObjectURL(url);
       }
     };
-  }, [pdfDocument, templateId]);
+  }, [pdfDocument, templateId, url]);
 
   if (loading) {
     return (

@@ -5,6 +5,7 @@ import Providers from "@/components/Providers";
 import HeaderWrapper from "@/components/Global/HeaderWrapper";
 
 const poppins = Poppins({
+  subsets: ["latin"],
   variable: "--font-poppins",
   weight: "400",
 });

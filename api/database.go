@@ -15,16 +15,19 @@ var DB *gorm.DB
 func InitDB() {
 	_ = godotenv.Load("../.env")
 
+	// Get database configuration from environment variables
+	dbHost := os.Getenv("PGSQL_HOST")
+	dbUser := os.Getenv("PGSQL_USER")
+	dbPassword := os.Getenv("PGSQL_PSWRD")
+	dbPort := os.Getenv("PGSQL_PORT")
+	dbName := os.Getenv("PGSQL_DB")
+
 	// First connect to postgres database to create our database if needed
-	dsn := "host=localhost user=postgres password=7437 dbname=postgres port=5432 sslmode=disable"
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=postgres port=%s sslmode=disable",
+		dbHost, dbUser, dbPassword, dbPort)
 	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect to PSQL:", err)
-	}
-
-	dbName := "resumem" // Default database name
-	if envDB := os.Getenv("PGSQL_DB"); envDB != "" {
-		dbName = envDB
 	}
 
 	var count int64
@@ -45,7 +48,8 @@ func InitDB() {
 	sqlDB.Close()
 
 	// Now connect to our actual database
-	dsn = fmt.Sprintf("host=localhost user=postgres password=7437 dbname=%s port=5432 sslmode=disable", dbName)
+	dsn = fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=disable",
+		dbHost, dbUser, dbPassword, dbName, dbPort)
 	db, err = gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
