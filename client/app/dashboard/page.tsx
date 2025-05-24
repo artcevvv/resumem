@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { getToken } from '../config/api';
+import { API_URL, getToken } from '../config/api';
 import Container from '@/components/Global/Container';
 import ResumeCard from '@/components/Dashboard/ResumeCard';
 
@@ -42,7 +42,7 @@ export default function DashboardPage() {
         const fetchResumes = async () => {
             try {
                 const token = getToken();
-                const response = await fetch('http://localhost:8080/api/v1/resumes', {
+                const response = await fetch(`${API_URL}/resumes`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },

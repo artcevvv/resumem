@@ -4,6 +4,7 @@ import React, { useState } from 'react'
 import { useCookies } from 'react-cookie'
 import Container from '@/components/Global/Container'
 import { User, Lock, KeyRound } from 'lucide-react'
+import { API_URL } from '../config/api'
 
 export default function Settings() {
   const [username, setUsername] = useState('')
@@ -25,7 +26,7 @@ export default function Settings() {
     }
 
     try {
-      const response = await fetch('http://localhost:8080/api/v1/settings', {
+      const response = await fetch(`${API_URL}/api/v1/settings`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

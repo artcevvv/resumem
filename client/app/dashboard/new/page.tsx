@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getToken } from '../../config/api';
+import { API_URL, getToken } from '../../config/api';
 import Container from '@/components/Global/Container';
 import { PatternFormat } from 'react-number-format';
 import { 
@@ -132,7 +132,7 @@ export default function NewResumePage() {
                 }))
             };
 
-            const response = await fetch('http://localhost:8080/api/v1/resumes', {
+            const response = await fetch(`${API_URL}/resumes`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

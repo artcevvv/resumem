@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { getToken } from '../../../../config/api';
+import { API_URL, getToken } from '../../../../config/api';
 import Container from '@/components/Global/Container';
 import { PatternFormat } from 'react-number-format';
 import { 
@@ -87,7 +87,7 @@ export default function EditResumePage({ params }: Props) {
         const fetchResume = async () => {
             try {
                 const token = getToken();
-                const response = await fetch(`http://localhost:8080/api/v1/resumes/${resumeId}`, {
+                const response = await fetch(`${API_URL}/resumes/${resumeId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
@@ -157,7 +157,7 @@ export default function EditResumePage({ params }: Props) {
                 })),
             };
 
-            const response = await fetch(`http://localhost:8080/api/v1/resumes/${resumeId}`, {
+            const response = await fetch(`${API_URL}/resumes/${resumeId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

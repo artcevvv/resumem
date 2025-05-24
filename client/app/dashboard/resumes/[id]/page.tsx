@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState, use } from 'react';
-import { getToken } from '../../../config/api';
+import { API_URL, getToken } from '../../../config/api';
 import Container from '@/components/Global/Container';
 import Link from 'next/link';
 import TemplateSelector from '../../../../components/Dashboard/ResumeTemplates/TemplateSelector';
@@ -52,7 +52,7 @@ export default function ResumePage({ params }: { params: Promise<{ id: string }>
         const fetchResume = async () => {
             try {
                 const token = getToken();
-                const response = await fetch(`http://localhost:8080/api/v1/resumes/${resolvedParams.id}`, {
+                const response = await fetch(`${API_URL}/resumes/${resolvedParams.id}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
