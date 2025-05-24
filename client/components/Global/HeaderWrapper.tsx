@@ -17,6 +17,7 @@ export default function HeaderWrapper() {
     const handleLogout = () => {
         document.cookie = 'token=; path=/; max-age=0'
         router.push('/')
+        window.location.reload()
     }
 
     return <Header isLoggedIn={isLoggedIn} onLogout={handleLogout} />

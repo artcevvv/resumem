@@ -25,10 +25,10 @@ function Hero() {
             <div className="absolute inset-0 flex items-center justify-center">
               <div className="w-full h-full relative">
                 <Image
-                  src="/hero-illustration.svg"
+                  src="/images/preview.png"
                   alt="Resume Builder Illustration"
                   fill
-                  className="object-contain p-8"
+                  className="object-cover"
                   priority
                 />
               </div>

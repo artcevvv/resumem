@@ -13,7 +13,16 @@ export interface AuthResponse {
 
 export const setToken = (token: string) => {
   console.log('Setting token:', token);
-  document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 24 * 7}; secure; samesite=strict`;
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  const cookieOptions = [
+    `token=${token}`,
+    'path=/',
+    `max-age=${60 * 60 * 24 * 7}`,
+    isDevelopment ? '' : 'secure',
+    isDevelopment ? '' : 'samesite=strict'
+  ].filter(Boolean).join('; ');
+  
+  document.cookie = cookieOptions;
   console.log('Current cookies after setting:', document.cookie);
 };
 

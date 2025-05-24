@@ -3,6 +3,22 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getToken } from '../../config/api';
+import Container from '@/components/Global/Container';
+import { 
+    User, 
+    Mail, 
+    Phone, 
+    Link as LinkIcon, 
+    Briefcase, 
+    GraduationCap, 
+    BookOpen,
+    Building2,
+    Award,
+    Calendar,
+    MapPin,
+    FileText,
+    Globe
+} from 'lucide-react';
 
 interface ResumeFormData {
     fullname: string;
@@ -137,58 +153,142 @@ export default function NewResumePage() {
         }
     };
 
+    const handleNext = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (step < 6) {
+            setStep(step + 1);
+        }
+    };
+
+    const handlePrevious = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (step > 1) {
+            setStep(step - 1);
+        }
+    };
+
+    const canAddLink = () => {
+        return formData.links.every(link => link.type.trim() !== '' && link.url.trim() !== '');
+    };
+
+    const canAddSkill = () => {
+        return formData.skills.every(skill => skill.type.trim() !== '' && skill.level.trim() !== '');
+    };
+
+    const canAddEducation = () => {
+        return formData.educations.every(education => 
+            education.school.trim() !== '' && 
+            education.degree.trim() !== '' && 
+            education.start_date.trim() !== '' && 
+            education.end_date.trim() !== '' && 
+            education.city.trim() !== '' && 
+            education.description.trim() !== ''
+        );
+    };
+
+    const canAddCareer = () => {
+        return formData.careers.every(career => 
+            career.job_title.trim() !== '' && 
+            career.employer.trim() !== '' && 
+            career.start_date.trim() !== '' && 
+            career.end_date.trim() !== '' && 
+            career.city.trim() !== '' && 
+            career.description.trim() !== ''
+        );
+    };
+
+    const canAddCourse = () => {
+        return formData.courses.every(course => 
+            course.name.trim() !== '' && 
+            course.url.trim() !== '' && 
+            course.start_date.trim() !== '' && 
+            course.end_date.trim() !== ''
+        );
+    };
+
+    const RequiredLabel = ({ children }: { children: React.ReactNode }) => (
+        <span className="flex items-center gap-1">
+            {children}
+            <span className="text-red-500">*</span>
+        </span>
+    );
+
     const renderStep = () => {
         switch (step) {
             case 1:
                 return (
                     <div className="space-y-6">
                         <div>
-                            <label htmlFor="fullname" className="block text-sm font-medium">
-                                Full Name
+                            <label htmlFor="fullname" className="block text-sm font-medium text-gray-700 mb-1">
+                                <RequiredLabel>Full Name</RequiredLabel>
                             </label>
-                            <input
-                                type="text"
-                                id="fullname"
-                                value={formData.fullname}
-                                onChange={(e) => setFormData({ ...formData, fullname: e.target.value })}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <User className="h-5 w-5 text-gray-400" />
+                                </div>
+                                <input
+                                    type="text"
+                                    id="fullname"
+                                    value={formData.fullname}
+                                    onChange={(e) => setFormData({ ...formData, fullname: e.target.value })}
+                                    className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                    placeholder="Enter your full name"
+                                />
+                            </div>
                         </div>
                         <div>
-                            <label htmlFor="email" className="block text-sm font-medium">
-                                Email
+                            <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                                <RequiredLabel>Email</RequiredLabel>
                             </label>
-                            <input
-                                type="email"
-                                id="email"
-                                value={formData.email}
-                                onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <Mail className="h-5 w-5 text-gray-400" />
+                                </div>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                    placeholder="Enter your email"
+                                />
+                            </div>
                         </div>
                         <div>
-                            <label htmlFor="phone" className="block text-sm font-medium">
-                                Phone Number
+                            <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
+                                <RequiredLabel>Phone Number</RequiredLabel>
                             </label>
-                            <input
-                                type="tel"
-                                id="phone"
-                                value={formData.phone_number}
-                                onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
+                            <div className="relative">
+                                <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <Phone className="h-5 w-5 text-gray-400" />
+                                </div>
+                                <input
+                                    type="tel"
+                                    id="phone"
+                                    value={formData.phone_number}
+                                    onChange={(e) => setFormData({ ...formData, phone_number: e.target.value })}
+                                    className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                    placeholder="Enter your phone number"
+                                />
+                            </div>
                         </div>
                         <div>
-                            <label htmlFor="summary" className="block text-sm font-medium">
-                                Summary
+                            <label htmlFor="summary" className="block text-sm font-medium text-gray-700 mb-1">
+                                <RequiredLabel>Summary</RequiredLabel>
                             </label>
-                            <textarea
-                                id="summary"
-                                rows={4}
-                                value={formData.summary}
-                                onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                            />
+                            <div className="relative">
+                                <div className="absolute top-3 left-3 pointer-events-none">
+                                    <FileText className="h-5 w-5 text-gray-400" />
+                                </div>
+                                <textarea
+                                    id="summary"
+                                    rows={4}
+                                    value={formData.summary}
+                                    onChange={(e) => setFormData({ ...formData, summary: e.target.value })}
+                                    className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                    placeholder="Write a brief summary about yourself"
+                                />
+                            </div>
                         </div>
                     </div>
                 );
@@ -198,43 +298,63 @@ export default function NewResumePage() {
                         {formData.links.map((link, index) => (
                             <div key={index} className="flex space-x-4">
                                 <div className="flex-1">
-                                    <label htmlFor={`link-type-${index}`} className="block text-sm font-medium">
-                                        Link Type
+                                    <label htmlFor={`link-type-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Link Type</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`link-type-${index}`}
-                                        value={link.type}
-                                        onChange={(e) => {
-                                            const newLinks = [...formData.links];
-                                            newLinks[index] = { ...link, type: e.target.value };
-                                            setFormData({ ...formData, links: newLinks });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <LinkIcon className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id={`link-type-${index}`}
+                                            value={link.type}
+                                            onChange={(e) => {
+                                                const newLinks = [...formData.links];
+                                                newLinks[index] = { ...link, type: e.target.value };
+                                                setFormData({ ...formData, links: newLinks });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="e.g., LinkedIn, GitHub"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div className="flex-1">
-                                    <label htmlFor={`link-url-${index}`} className="block text-sm font-medium">
-                                        URL
+                                    <label htmlFor={`link-url-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>URL</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="url"
-                                        id={`link-url-${index}`}
-                                        value={link.url}
-                                        onChange={(e) => {
-                                            const newLinks = [...formData.links];
-                                            newLinks[index] = { ...link, url: e.target.value };
-                                            setFormData({ ...formData, links: newLinks });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Globe className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="url"
+                                            id={`link-url-${index}`}
+                                            value={link.url}
+                                            onChange={(e) => {
+                                                const newLinks = [...formData.links];
+                                                newLinks[index] = { ...link, url: e.target.value };
+                                                setFormData({ ...formData, links: newLinks });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="https://..."
+                                            required
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         ))}
                         <button
                             type="button"
-                            onClick={() => setFormData({ ...formData, links: [...formData.links, { type: '', url: '' }] })}
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => {
+                                if (canAddLink()) {
+                                    setFormData({ ...formData, links: [...formData.links, { type: '', url: '' }] });
+                                } else {
+                                    setError('Please fill out all current link fields before adding a new one.');
+                                }
+                            }}
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-xl text-indigo-600 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                         >
                             Add Link
                         </button>
@@ -246,24 +366,31 @@ export default function NewResumePage() {
                         {formData.skills.map((skill, index) => (
                             <div key={index} className="flex space-x-4">
                                 <div className="flex-1">
-                                    <label htmlFor={`skill-type-${index}`} className="block text-sm font-medium">
-                                        Skill Type
+                                    <label htmlFor={`skill-type-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Skill Type</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`skill-type-${index}`}
-                                        value={skill.type}
-                                        onChange={(e) => {
-                                            const newSkills = [...formData.skills];
-                                            newSkills[index] = { ...skill, type: e.target.value };
-                                            setFormData({ ...formData, skills: newSkills });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Award className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id={`skill-type-${index}`}
+                                            value={skill.type}
+                                            onChange={(e) => {
+                                                const newSkills = [...formData.skills];
+                                                newSkills[index] = { ...skill, type: e.target.value };
+                                                setFormData({ ...formData, skills: newSkills });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter skill type"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div className="flex-1">
-                                    <label htmlFor={`skill-level-${index}`} className="block text-sm font-medium">
-                                        Level
+                                    <label htmlFor={`skill-level-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Level</RequiredLabel>
                                     </label>
                                     <select
                                         id={`skill-level-${index}`}
@@ -273,7 +400,8 @@ export default function NewResumePage() {
                                             newSkills[index] = { ...skill, level: e.target.value };
                                             setFormData({ ...formData, skills: newSkills });
                                         }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                        className="appearance-none block w-full pl-3 pr-10 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                        required
                                     >
                                         <option value="">Select Level</option>
                                         <option value="Beginner">Beginner</option>
@@ -286,8 +414,14 @@ export default function NewResumePage() {
                         ))}
                         <button
                             type="button"
-                            onClick={() => setFormData({ ...formData, skills: [...formData.skills, { type: '', level: '' }] })}
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => {
+                                if (canAddSkill()) {
+                                    setFormData({ ...formData, skills: [...formData.skills, { type: '', level: '' }] });
+                                } else {
+                                    setError('Please fill out all current skill fields before adding a new one.');
+                                }
+                            }}
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-xl text-indigo-600 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                         >
                             Add Skill
                         </button>
@@ -297,121 +431,167 @@ export default function NewResumePage() {
                 return (
                     <div className="space-y-6">
                         {formData.educations.map((education, index) => (
-                            <div key={index} className="space-y-4 p-4 border rounded-lg">
+                            <div key={index} className="space-y-4">
                                 <div>
-                                    <label htmlFor={`education-school-${index}`} className="block text-sm font-medium">
-                                        School
+                                    <label htmlFor={`education-school-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>School</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`education-school-${index}`}
-                                        value={education.school}
-                                        onChange={(e) => {
-                                            const newEducations = [...formData.educations];
-                                            newEducations[index] = { ...education, school: e.target.value };
-                                            setFormData({ ...formData, educations: newEducations });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Building2 className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id={`education-school-${index}`}
+                                            value={education.school}
+                                            onChange={(e) => {
+                                                const newEducations = [...formData.educations];
+                                                newEducations[index] = { ...education, school: e.target.value };
+                                                setFormData({ ...formData, educations: newEducations });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter school name"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div>
-                                    <label htmlFor={`education-degree-${index}`} className="block text-sm font-medium">
-                                        Degree
+                                    <label htmlFor={`education-degree-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Degree</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`education-degree-${index}`}
-                                        value={education.degree}
-                                        onChange={(e) => {
-                                            const newEducations = [...formData.educations];
-                                            newEducations[index] = { ...education, degree: e.target.value };
-                                            setFormData({ ...formData, educations: newEducations });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <GraduationCap className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id={`education-degree-${index}`}
+                                            value={education.degree}
+                                            onChange={(e) => {
+                                                const newEducations = [...formData.educations];
+                                                newEducations[index] = { ...education, degree: e.target.value };
+                                                setFormData({ ...formData, educations: newEducations });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter degree"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label htmlFor={`education-start-${index}`} className="block text-sm font-medium">
-                                            Start Date
+                                        <label htmlFor={`education-start-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                            <RequiredLabel>Start Date</RequiredLabel>
                                         </label>
-                                        <input
-                                            type="date"
-                                            id={`education-start-${index}`}
-                                            value={education.start_date}
-                                            onChange={(e) => {
-                                                const newEducations = [...formData.educations];
-                                                newEducations[index] = { ...education, start_date: e.target.value };
-                                                setFormData({ ...formData, educations: newEducations });
-                                            }}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        />
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <Calendar className="h-5 w-5 text-gray-400" />
+                                            </div>
+                                            <input
+                                                type="date"
+                                                id={`education-start-${index}`}
+                                                value={education.start_date}
+                                                onChange={(e) => {
+                                                    const newEducations = [...formData.educations];
+                                                    newEducations[index] = { ...education, start_date: e.target.value };
+                                                    setFormData({ ...formData, educations: newEducations });
+                                                }}
+                                                className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                                required
+                                            />
+                                        </div>
                                     </div>
                                     <div>
-                                        <label htmlFor={`education-end-${index}`} className="block text-sm font-medium">
-                                            End Date
+                                        <label htmlFor={`education-end-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                            <RequiredLabel>End Date</RequiredLabel>
                                         </label>
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <Calendar className="h-5 w-5 text-gray-400" />
+                                            </div>
+                                            <input
+                                                type="date"
+                                                id={`education-end-${index}`}
+                                                value={education.end_date}
+                                                onChange={(e) => {
+                                                    const newEducations = [...formData.educations];
+                                                    newEducations[index] = { ...education, end_date: e.target.value };
+                                                    setFormData({ ...formData, educations: newEducations });
+                                                }}
+                                                className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor={`education-city-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>City</RequiredLabel>
+                                    </label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <MapPin className="h-5 w-5 text-gray-400" />
+                                        </div>
                                         <input
-                                            type="date"
-                                            id={`education-end-${index}`}
-                                            value={education.end_date}
+                                            type="text"
+                                            id={`education-city-${index}`}
+                                            value={education.city}
                                             onChange={(e) => {
                                                 const newEducations = [...formData.educations];
-                                                newEducations[index] = { ...education, end_date: e.target.value };
+                                                newEducations[index] = { ...education, city: e.target.value };
                                                 setFormData({ ...formData, educations: newEducations });
                                             }}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter city"
+                                            required
                                         />
                                     </div>
                                 </div>
                                 <div>
-                                    <label htmlFor={`education-city-${index}`} className="block text-sm font-medium">
-                                        City
+                                    <label htmlFor={`education-description-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Description</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`education-city-${index}`}
-                                        value={education.city}
-                                        onChange={(e) => {
-                                            const newEducations = [...formData.educations];
-                                            newEducations[index] = { ...education, city: e.target.value };
-                                            setFormData({ ...formData, educations: newEducations });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor={`education-description-${index}`} className="block text-sm font-medium">
-                                        Description
-                                    </label>
-                                    <textarea
-                                        id={`education-description-${index}`}
-                                        rows={3}
-                                        value={education.description}
-                                        onChange={(e) => {
-                                            const newEducations = [...formData.educations];
-                                            newEducations[index] = { ...education, description: e.target.value };
-                                            setFormData({ ...formData, educations: newEducations });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute top-3 left-3 pointer-events-none">
+                                            <FileText className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <textarea
+                                            id={`education-description-${index}`}
+                                            rows={3}
+                                            value={education.description}
+                                            onChange={(e) => {
+                                                const newEducations = [...formData.educations];
+                                                newEducations[index] = { ...education, description: e.target.value };
+                                                setFormData({ ...formData, educations: newEducations });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter education description"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         ))}
                         <button
                             type="button"
-                            onClick={() => setFormData({
-                                ...formData,
-                                educations: [...formData.educations, {
-                                    school: '',
-                                    degree: '',
-                                    start_date: '',
-                                    end_date: '',
-                                    city: '',
-                                    description: '',
-                                }]
-                            })}
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => {
+                                if (canAddEducation()) {
+                                    setFormData({
+                                        ...formData,
+                                        educations: [...formData.educations, {
+                                            school: '',
+                                            degree: '',
+                                            start_date: '',
+                                            end_date: '',
+                                            city: '',
+                                            description: '',
+                                        }]
+                                    });
+                                } else {
+                                    setError('Please fill out all current education fields before adding a new one.');
+                                }
+                            }}
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-xl text-indigo-600 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                         >
                             Add Education
                         </button>
@@ -421,121 +601,167 @@ export default function NewResumePage() {
                 return (
                     <div className="space-y-6">
                         {formData.careers.map((career, index) => (
-                            <div key={index} className="space-y-4 p-4 border rounded-lg">
+                            <div key={index} className="space-y-4">
                                 <div>
-                                    <label htmlFor={`career-title-${index}`} className="block text-sm font-medium">
-                                        Job Title
+                                    <label htmlFor={`career-title-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Job Title</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`career-title-${index}`}
-                                        value={career.job_title}
-                                        onChange={(e) => {
-                                            const newCareers = [...formData.careers];
-                                            newCareers[index] = { ...career, job_title: e.target.value };
-                                            setFormData({ ...formData, careers: newCareers });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Briefcase className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id={`career-title-${index}`}
+                                            value={career.job_title}
+                                            onChange={(e) => {
+                                                const newCareers = [...formData.careers];
+                                                newCareers[index] = { ...career, job_title: e.target.value };
+                                                setFormData({ ...formData, careers: newCareers });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter job title"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div>
-                                    <label htmlFor={`career-employer-${index}`} className="block text-sm font-medium">
-                                        Employer
+                                    <label htmlFor={`career-employer-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Employer</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`career-employer-${index}`}
-                                        value={career.employer}
-                                        onChange={(e) => {
-                                            const newCareers = [...formData.careers];
-                                            newCareers[index] = { ...career, employer: e.target.value };
-                                            setFormData({ ...formData, careers: newCareers });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Building2 className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id={`career-employer-${index}`}
+                                            value={career.employer}
+                                            onChange={(e) => {
+                                                const newCareers = [...formData.careers];
+                                                newCareers[index] = { ...career, employer: e.target.value };
+                                                setFormData({ ...formData, careers: newCareers });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter employer"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label htmlFor={`career-start-${index}`} className="block text-sm font-medium">
-                                            Start Date
+                                        <label htmlFor={`career-start-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                            <RequiredLabel>Start Date</RequiredLabel>
                                         </label>
-                                        <input
-                                            type="date"
-                                            id={`career-start-${index}`}
-                                            value={career.start_date}
-                                            onChange={(e) => {
-                                                const newCareers = [...formData.careers];
-                                                newCareers[index] = { ...career, start_date: e.target.value };
-                                                setFormData({ ...formData, careers: newCareers });
-                                            }}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        />
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <Calendar className="h-5 w-5 text-gray-400" />
+                                            </div>
+                                            <input
+                                                type="date"
+                                                id={`career-start-${index}`}
+                                                value={career.start_date}
+                                                onChange={(e) => {
+                                                    const newCareers = [...formData.careers];
+                                                    newCareers[index] = { ...career, start_date: e.target.value };
+                                                    setFormData({ ...formData, careers: newCareers });
+                                                }}
+                                                className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                                required
+                                            />
+                                        </div>
                                     </div>
                                     <div>
-                                        <label htmlFor={`career-end-${index}`} className="block text-sm font-medium">
-                                            End Date
+                                        <label htmlFor={`career-end-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                            <RequiredLabel>End Date</RequiredLabel>
                                         </label>
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <Calendar className="h-5 w-5 text-gray-400" />
+                                            </div>
+                                            <input
+                                                type="date"
+                                                id={`career-end-${index}`}
+                                                value={career.end_date}
+                                                onChange={(e) => {
+                                                    const newCareers = [...formData.careers];
+                                                    newCareers[index] = { ...career, end_date: e.target.value };
+                                                    setFormData({ ...formData, careers: newCareers });
+                                                }}
+                                                className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label htmlFor={`career-city-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>City</RequiredLabel>
+                                    </label>
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <MapPin className="h-5 w-5 text-gray-400" />
+                                        </div>
                                         <input
-                                            type="date"
-                                            id={`career-end-${index}`}
-                                            value={career.end_date}
+                                            type="text"
+                                            id={`career-city-${index}`}
+                                            value={career.city}
                                             onChange={(e) => {
                                                 const newCareers = [...formData.careers];
-                                                newCareers[index] = { ...career, end_date: e.target.value };
+                                                newCareers[index] = { ...career, city: e.target.value };
                                                 setFormData({ ...formData, careers: newCareers });
                                             }}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter city"
+                                            required
                                         />
                                     </div>
                                 </div>
                                 <div>
-                                    <label htmlFor={`career-city-${index}`} className="block text-sm font-medium">
-                                        City
+                                    <label htmlFor={`career-description-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Description</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`career-city-${index}`}
-                                        value={career.city}
-                                        onChange={(e) => {
-                                            const newCareers = [...formData.careers];
-                                            newCareers[index] = { ...career, city: e.target.value };
-                                            setFormData({ ...formData, careers: newCareers });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
-                                </div>
-                                <div>
-                                    <label htmlFor={`career-description-${index}`} className="block text-sm font-medium">
-                                        Description
-                                    </label>
-                                    <textarea
-                                        id={`career-description-${index}`}
-                                        rows={3}
-                                        value={career.description}
-                                        onChange={(e) => {
-                                            const newCareers = [...formData.careers];
-                                            newCareers[index] = { ...career, description: e.target.value };
-                                            setFormData({ ...formData, careers: newCareers });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute top-3 left-3 pointer-events-none">
+                                            <FileText className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <textarea
+                                            id={`career-description-${index}`}
+                                            rows={3}
+                                            value={career.description}
+                                            onChange={(e) => {
+                                                const newCareers = [...formData.careers];
+                                                newCareers[index] = { ...career, description: e.target.value };
+                                                setFormData({ ...formData, careers: newCareers });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter career description"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                             </div>
                         ))}
                         <button
                             type="button"
-                            onClick={() => setFormData({
-                                ...formData,
-                                careers: [...formData.careers, {
-                                    job_title: '',
-                                    employer: '',
-                                    start_date: '',
-                                    end_date: '',
-                                    city: '',
-                                    description: '',
-                                }]
-                            })}
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => {
+                                if (canAddCareer()) {
+                                    setFormData({
+                                        ...formData,
+                                        careers: [...formData.careers, {
+                                            job_title: '',
+                                            employer: '',
+                                            start_date: '',
+                                            end_date: '',
+                                            city: '',
+                                            description: '',
+                                        }]
+                                    });
+                                } else {
+                                    setError('Please fill out all current career fields before adding a new one.');
+                                }
+                            }}
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-xl text-indigo-600 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                         >
                             Add Career
                         </button>
@@ -545,87 +771,119 @@ export default function NewResumePage() {
                 return (
                     <div className="space-y-6">
                         {formData.courses.map((course, index) => (
-                            <div key={index} className="space-y-4 p-4 border rounded-lg">
+                            <div key={index} className="space-y-4">
                                 <div>
-                                    <label htmlFor={`course-name-${index}`} className="block text-sm font-medium">
-                                        Course Name
+                                    <label htmlFor={`course-name-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Course Name</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="text"
-                                        id={`course-name-${index}`}
-                                        value={course.name}
-                                        onChange={(e) => {
-                                            const newCourses = [...formData.courses];
-                                            newCourses[index] = { ...course, name: e.target.value };
-                                            setFormData({ ...formData, courses: newCourses });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <BookOpen className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="text"
+                                            id={`course-name-${index}`}
+                                            value={course.name}
+                                            onChange={(e) => {
+                                                const newCourses = [...formData.courses];
+                                                newCourses[index] = { ...course, name: e.target.value };
+                                                setFormData({ ...formData, courses: newCourses });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="Enter course name"
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div>
-                                    <label htmlFor={`course-url-${index}`} className="block text-sm font-medium">
-                                        Course URL
+                                    <label htmlFor={`course-url-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                        <RequiredLabel>Course URL</RequiredLabel>
                                     </label>
-                                    <input
-                                        type="url"
-                                        id={`course-url-${index}`}
-                                        value={course.url}
-                                        onChange={(e) => {
-                                            const newCourses = [...formData.courses];
-                                            newCourses[index] = { ...course, url: e.target.value };
-                                            setFormData({ ...formData, courses: newCourses });
-                                        }}
-                                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                    />
+                                    <div className="relative">
+                                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                            <Globe className="h-5 w-5 text-gray-400" />
+                                        </div>
+                                        <input
+                                            type="url"
+                                            id={`course-url-${index}`}
+                                            value={course.url}
+                                            onChange={(e) => {
+                                                const newCourses = [...formData.courses];
+                                                newCourses[index] = { ...course, url: e.target.value };
+                                                setFormData({ ...formData, courses: newCourses });
+                                            }}
+                                            className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                            placeholder="https://..."
+                                            required
+                                        />
+                                    </div>
                                 </div>
                                 <div className="grid grid-cols-2 gap-4">
                                     <div>
-                                        <label htmlFor={`course-start-${index}`} className="block text-sm font-medium">
-                                            Start Date
+                                        <label htmlFor={`course-start-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                            <RequiredLabel>Start Date</RequiredLabel>
                                         </label>
-                                        <input
-                                            type="date"
-                                            id={`course-start-${index}`}
-                                            value={course.start_date}
-                                            onChange={(e) => {
-                                                const newCourses = [...formData.courses];
-                                                newCourses[index] = { ...course, start_date: e.target.value };
-                                                setFormData({ ...formData, courses: newCourses });
-                                            }}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        />
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <Calendar className="h-5 w-5 text-gray-400" />
+                                            </div>
+                                            <input
+                                                type="date"
+                                                id={`course-start-${index}`}
+                                                value={course.start_date}
+                                                onChange={(e) => {
+                                                    const newCourses = [...formData.courses];
+                                                    newCourses[index] = { ...course, start_date: e.target.value };
+                                                    setFormData({ ...formData, courses: newCourses });
+                                                }}
+                                                className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                                required
+                                            />
+                                        </div>
                                     </div>
                                     <div>
-                                        <label htmlFor={`course-end-${index}`} className="block text-sm font-medium">
-                                            End Date
+                                        <label htmlFor={`course-end-${index}`} className="block text-sm font-medium text-gray-700 mb-1">
+                                            <RequiredLabel>End Date</RequiredLabel>
                                         </label>
-                                        <input
-                                            type="date"
-                                            id={`course-end-${index}`}
-                                            value={course.end_date}
-                                            onChange={(e) => {
-                                                const newCourses = [...formData.courses];
-                                                newCourses[index] = { ...course, end_date: e.target.value };
-                                                setFormData({ ...formData, courses: newCourses });
-                                            }}
-                                            className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                                        />
+                                        <div className="relative">
+                                            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                                <Calendar className="h-5 w-5 text-gray-400" />
+                                            </div>
+                                            <input
+                                                type="date"
+                                                id={`course-end-${index}`}
+                                                value={course.end_date}
+                                                onChange={(e) => {
+                                                    const newCourses = [...formData.courses];
+                                                    newCourses[index] = { ...course, end_date: e.target.value };
+                                                    setFormData({ ...formData, courses: newCourses });
+                                                }}
+                                                className="appearance-none block w-full pl-10 pr-3 py-2 border border-gray-200 rounded-xl shadow-sm placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                                                required
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                         <button
                             type="button"
-                            onClick={() => setFormData({
-                                ...formData,
-                                courses: [...formData.courses, {
-                                    name: '',
-                                    url: '',
-                                    start_date: '',
-                                    end_date: '',
-                                }]
-                            })}
-                            className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={() => {
+                                if (canAddCourse()) {
+                                    setFormData({
+                                        ...formData,
+                                        courses: [...formData.courses, {
+                                            name: '',
+                                            url: '',
+                                            start_date: '',
+                                            end_date: '',
+                                        }]
+                                    });
+                                } else {
+                                    setError('Please fill out all current course fields before adding a new one.');
+                                }
+                            }}
+                            className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-xl text-indigo-600 bg-indigo-50 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
                         >
                             Add Course
                         </button>
@@ -637,60 +895,59 @@ export default function NewResumePage() {
     };
 
     return (
-        <div className="max-w-3xl mx-auto">
-            <div className="bg-background shadow sm:rounded-lg">
-                <div className="px-4 py-5 sm:p-6">
-                    <h3 className="text-lg leading-6 font-medium">Create New Resume</h3>
-                    <div className="mt-2 max-w-xl text-sm">
-                        <p>Fill in your information step by step.</p>
-                    </div>
-                    <form onSubmit={handleSubmit} className="mt-5">
+        <div className="min-h-screen">
+            <Container>
+                <div className="max-w-3xl mx-auto py-12">
+                    <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-8">
+                        <div className="text-center mb-8">
+                            <h2 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">
+                                Create New Resume
+                            </h2>
+                            <p className="mt-2 text-gray-600">
+                                Fill in your information step by step
+                            </p>
+                        </div>
+
                         {error && (
-                            <div className="mb-4 bg-red-50 border-l-4 border-red-400 p-4">
-                                <div className="flex">
-                                    <div className="flex-shrink-0">
-                                        <svg className="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
-                                            <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
-                                        </svg>
-                                    </div>
-                                    <div className="ml-3">
-                                        <p className="text-sm text-red-700">{error}</p>
-                                    </div>
-                                </div>
+                            <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl border border-red-100">
+                                {error}
                             </div>
                         )}
-                        {renderStep()}
-                        <div className="mt-5 flex justify-between">
-                            {step > 1 && (
-                                <button
-                                    type="button"
-                                    onClick={() => setStep(step - 1)}
-                                    className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-md bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    Previous
-                                </button>
-                            )}
-                            {step < 6 ? (
-                                <button
-                                    type="button"
-                                    onClick={() => setStep(step + 1)}
-                                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    Next
-                                </button>
-                            ) : (
-                                <button
-                                    type="submit"
-                                    disabled={loading}
-                                    className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                >
-                                    {loading ? 'Creating...' : 'Create Resume'}
-                                </button>
-                            )}
-                        </div>
-                    </form>
+
+                        <form onSubmit={handleSubmit} className="mt-5">
+                            {renderStep()}
+                            <div className="mt-8 flex justify-between">
+                                {step > 1 && (
+                                    <button
+                                        type="button"
+                                        onClick={handlePrevious}
+                                        className="inline-flex items-center px-4 py-2 border border-gray-300 shadow-sm text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                                    >
+                                        Previous
+                                    </button>
+                                )}
+                                {step < 6 ? (
+                                    <button
+                                        type="button"
+                                        onClick={handleNext}
+                                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-xl shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                                    >
+                                        Next
+                                    </button>
+                                ) : (
+                                    <button
+                                        type="submit"
+                                        disabled={loading}
+                                        className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-xl shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                                    >
+                                        {loading ? 'Creating...' : 'Create Resume'}
+                                    </button>
+                                )}
+                            </div>
+                        </form>
+                    </div>
                 </div>
-            </div>
+            </Container>
         </div>
     );
 }

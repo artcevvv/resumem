@@ -7,21 +7,21 @@ const testimonials = [
     name: "Sarah Johnson",
     role: "Software Engineer",
     company: "Tech Corp",
-    image: "/testimonials/sarah.jpg",
+    image: "/components/Testimonials/person1.jpg",
     quote: "This resume builder helped me land my dream job at a top tech company. The templates are professional and the interface is incredibly easy to use."
   },
   {
     name: "Michael Chen",
     role: "Marketing Manager",
     company: "Creative Solutions",
-    image: "/testimonials/michael.jpg",
+    image: "/components/Testimonials/person2.jpg",
     quote: "I was able to create a stunning resume in minutes. The customization options are fantastic, and the PDF export quality is perfect."
   },
   {
     name: "Emily Rodriguez",
     role: "Product Designer",
     company: "Design Studio",
-    image: "/testimonials/emily.jpg",
+    image: "/components/Testimonials/person3.jpg",
     quote: "As a designer, I'm picky about aesthetics. This tool exceeded my expectations with its beautiful templates and professional output."
   }
 ]

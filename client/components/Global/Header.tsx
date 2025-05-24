@@ -77,7 +77,7 @@ function Header({ isLoggedIn, onLogout }: HeaderProps) {
 
           <nav className="hidden md:flex items-center gap-7">
             <Link href="/templates" className='text-gray-600 hover:text-gray-900 text-lg font-medium transition-colors'>Templates</Link>
-            <Link href="/contacts" className='text-gray-600 hover:text-gray-900 text-lg font-medium transition-colors'>Contact Us</Link>
+            <Link href="/contact" className='text-gray-600 hover:text-gray-900 text-lg font-medium transition-colors'>Contact Us</Link>
           </nav>
         </div>
 
