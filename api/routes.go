@@ -2,6 +2,7 @@ package main
 
 import (
 	"os"
+	"strings"
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
@@ -10,15 +11,21 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	// Disable proxy trust checking since we're not behind a proxy
 	r.SetTrustedProxies(nil)
 
 	config := cors.DefaultConfig()
+
 	allowedOrigins := os.Getenv("ALLOWED_ORIGINS")
 	if allowedOrigins == "" {
-		allowedOrigins = "https://resumem.vercel.app/"
+		allowedOrigins = "https://resumem.vercel.app"
 	}
-	config.AllowOrigins = []string{allowedOrigins}
+
+	origins := strings.Split(allowedOrigins, ",")
+	for i, origin := range origins {
+		origins[i] = strings.TrimRight(strings.TrimSpace(origin), "/")
+	}
+
+	config.AllowOrigins = origins
 	config.AllowHeaders = []string{"Origin", "Content-Length", "Content-Type", "Authorization"}
 	config.AllowMethods = []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"}
 	config.AllowCredentials = true
