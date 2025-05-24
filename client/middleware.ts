@@ -2,21 +2,21 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(request: NextRequest) {
-  console.log('Middleware - All cookies:', request.cookies.getAll());
+  // console.log('Middleware - All cookies:', request.cookies.getAll());
   const token = request.cookies.get('token');
-  console.log('Middleware - Token cookie:', token);
+  // console.log('Middleware - Token cookie:', token);
   const { pathname } = request.nextUrl;
-  console.log('Middleware - Current pathname:', pathname);
+  // console.log('Middleware - Current pathname:', pathname);
 
   const isDashboardPath = pathname.startsWith('/dashboard');
 
   if (!token && isDashboardPath) {
-    console.log('Middleware - No token found, redirecting to login');
+    // console.log('Middleware - No token found, redirecting to login');
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
   if (token && (pathname === '/login' || pathname === '/register')) {
-    console.log('Middleware - Token found, redirecting to dashboard');
+    // console.log('Middleware - Token found, redirecting to dashboard');
     return NextResponse.redirect(new URL('/dashboard', request.url));
   }
 

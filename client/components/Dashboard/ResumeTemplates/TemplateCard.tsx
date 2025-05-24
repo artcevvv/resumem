@@ -17,6 +17,12 @@ interface TemplateCardProps {
 }
 
 export default function TemplateCard({ template, onPreview }: TemplateCardProps) {
+    const handlePreviewClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onPreview(template.id);
+    };
+
     return (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden hover:shadow-md transition-shadow duration-300">
             <div className="aspect-[4/3] relative bg-gray-100 overflow-hidden">
@@ -27,6 +33,7 @@ export default function TemplateCard({ template, onPreview }: TemplateCardProps)
                         fill
                         className="object-contain object-top"
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        priority
                     />
                 </div>
             </div>
@@ -53,8 +60,9 @@ export default function TemplateCard({ template, onPreview }: TemplateCardProps)
                         Use Template
                     </Link>
                     <button
-                        onClick={() => onPreview(template.id)}
+                        onClick={handlePreviewClick}
                         className="inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-xl text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors"
+                        type="button"
                     >
                         <Download className="w-5 h-5 mr-2" />
                         Preview

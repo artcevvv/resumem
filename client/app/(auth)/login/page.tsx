@@ -26,7 +26,7 @@ export default function LoginPage() {
             }
             
             await setToken(response.token);
-            router.push('/register');
+            router.push('/dashboard');
             window.location.reload();
         } catch (err) {
             console.error('Login error:', err);

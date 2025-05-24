@@ -12,7 +12,7 @@ export interface AuthResponse {
 }
 
 export const setToken = (token: string) => {
-  console.log('Setting token:', token);
+  // console.log('Setting token:', token);
   const isDevelopment = process.env.NODE_ENV === 'development';
   const cookieOptions = [
     `token=${token}`,
@@ -23,28 +23,28 @@ export const setToken = (token: string) => {
   ].filter(Boolean).join('; ');
   
   document.cookie = cookieOptions;
-  console.log('Current cookies after setting:', document.cookie);
+  // console.log('Current cookies after setting:', document.cookie);
 };
 
 export const getToken = () => {
-  console.log('Getting token from cookies:', document.cookie);
+  // console.log('Getting token from cookies:', document.cookie);
   const cookies = document.cookie.split('; ');
-  console.log('Split cookies:', cookies);
+  // console.log('Split cookies:', cookies);
   const tokenCookie = cookies.find(row => row.startsWith('token='));
-  console.log('Found token cookie:', tokenCookie);
+  // console.log('Found token cookie:', tokenCookie);
   if (!tokenCookie) {
-    console.log('No token cookie found');
+    // console.log('No token cookie found');
     return null;
   }
   const token = tokenCookie.split('=')[1];
-  console.log('Extracted token:', token);
+  // console.log('Extracted token:', token);
   return token || null;
 };
 
 export const removeToken = () => {
-  console.log('Removing token');
+  // console.log('Removing token');
   document.cookie = 'token=; path=/; max-age=0';
-  console.log('Current cookies after removal:', document.cookie);
+  // console.log('Current cookies after removal:', document.cookie);
 };
 
 export const register = async (email: string, password: string, name: string): Promise<AuthResponse> => {
@@ -71,7 +71,7 @@ export const register = async (email: string, password: string, name: string): P
 
 export const login = async (email: string, password: string) => {
     try {
-        console.log('Making login request...');
+        // console.log('Making login request...');
         const response = await fetch(`${API_URL}/login`, {
             method: 'POST',
             headers: {
@@ -80,9 +80,9 @@ export const login = async (email: string, password: string) => {
             body: JSON.stringify({ email, password }),
         });
 
-        console.log('Login response status:', response.status);
+        // console.log('Login response status:', response.status);
         const data = await response.json();
-        console.log('Login response data:', data);
+        // console.log('Login response data:', data);
 
         if (!response.ok) {
             throw new Error(data.error || 'Login failed');

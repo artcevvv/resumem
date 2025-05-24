@@ -23,7 +23,7 @@ export default function RegisterPage() {
         try {
             const response = await register(email, password, name);
             await setToken(response.token);
-            router.push('/dashboard');
+            router.push('/login');
         } catch (err) {
             setError(err instanceof Error ? err.message : 'An error occurred');
         } finally {

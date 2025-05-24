@@ -53,14 +53,14 @@ export default function DashboardPage() {
                 }
 
                 const data = await response.json() as ServerResume[];
-                console.log('Received resumes data:', data);
+                // console.log('Received resumes data:', data);
                 
                 const processedData = data.map((resume) => ({
                     ...resume,
                     id: resume.ID || resume.id
                 }));
                 
-                console.log('Processed resumes data:', processedData);
+                // console.log('Processed resumes data:', processedData);
                 setResumes(processedData);
             } catch (err) {
                 console.error('Error fetching resumes:', err);
