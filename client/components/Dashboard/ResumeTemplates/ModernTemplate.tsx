@@ -1,4 +1,4 @@
-import { Document, Page, Text, View, StyleSheet, Font } from '@react-pdf/renderer';
+import { Document, Page, Text, View, StyleSheet, Font, Link } from '@react-pdf/renderer';
 import { ResumeData } from './types';
 
 // Register fonts
@@ -95,6 +95,14 @@ const styles = StyleSheet.create({
     color: '#666666',
     marginBottom: 2,
   },
+  links: {
+    fontSize: 10,
+    color: '#666666',
+    marginBottom: 3,
+    textAlign: 'left',
+    wordBreak: 'break-all',
+    maxWidth: '100%',
+  },
 });
 
 interface ModernTemplateProps {
@@ -165,6 +173,18 @@ const ModernTemplate = ({ resume }: ModernTemplateProps) => (
               <Text style={styles.date}>{edu.city}</Text>
               {edu.description && <Text style={styles.description}>{edu.description}</Text>}
             </View>
+          ))}
+        </View>
+      )}
+
+      {/* Links */}
+      {resume.links && resume.links.length > 0 && (
+        <View style={styles.section}>
+          <Text style={styles.sectionTitle}>Links</Text>
+          {resume.links.map((link, index) => (
+            <Link key={index} src={link.url} style={[styles.links, { color: '#4a90e2' }]}>
+              {link.type}
+            </Link>
           ))}
         </View>
       )}
